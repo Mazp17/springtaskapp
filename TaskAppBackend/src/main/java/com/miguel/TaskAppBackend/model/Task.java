@@ -1,7 +1,10 @@
 package com.miguel.TaskAppBackend.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.*;
 import java.util.Date;
+import java.util.Optional;
 
 @Entity
 @Table(name = "tasks")
@@ -9,7 +12,7 @@ public class Task {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Integer id;
     @Column(name = "name_task")
     private String nameTask;
 
@@ -21,7 +24,7 @@ public class Task {
     @Column(name = "created_at")
     private Date createdAt;
     @ManyToOne(
-            optional = false,
+            optional = true,
             cascade = {
                     CascadeType.PERSIST,
                     CascadeType.MERGE
@@ -36,14 +39,11 @@ public class Task {
     public Task() {
     }
 
-    public Task(int id, String nameTask, String task, boolean completed, Date completedAt, Date createdAt, User user) {
+    public Task(Integer id, String nameTask, String task, boolean completed, User user) {
         this.id = id;
         this.nameTask = nameTask;
         this.task = task;
         this.completed = completed;
-        this.completedAt = completedAt;
-        this.createdAt = createdAt;
-        this.user = user;
     }
 
     @PrePersist
@@ -56,11 +56,11 @@ public class Task {
         this.completedAt = new Date();
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -121,7 +121,10 @@ public class Task {
                 ", completed=" + completed +
                 ", completedAt=" + completedAt +
                 ", createdAt=" + createdAt +
-                ", user=" + user +
+                ", user=" +  user +
                 '}';
     }
+
+
+
 }

@@ -1,5 +1,7 @@
 package com.miguel.TaskAppBackend.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import javax.persistence.*;
 
 import java.util.Date;
@@ -82,6 +84,7 @@ public class User {
         this.email = email;
     }
 
+    @JsonBackReference
     public Set<Task> getTasks() {
         return tasks;
     }
@@ -89,7 +92,6 @@ public class User {
     public void setTasks(Set<Task> tasks) {
         this.tasks = tasks;
     }
-
 
 
     @Override
