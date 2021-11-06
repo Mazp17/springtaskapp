@@ -9,6 +9,13 @@
     <li>Route ROOT BASE Is "/api"</li>
     <li>From tasks</li>
         <ul>
-            <li>Method: GET, ROUTE: "/task"</li>
+            <li>
+                Method: GET, ROUTE: "/task" | 
+                <p>This method allows to obtain all the tasks that are in the DB.</p>
+            </li>
+            <li>
+                Method: GET, ROUTE: "/task/{idUser}", params: idUser | 
+                <p> This method allows you to search for tasks created by a specific user. </p> 
+            </li>
         </ul>
 </ul>
