@@ -1,0 +1,97 @@
+
+<ng-template #contenido let-modal>
+  <div class="modal-header">
+      <h4 class="modal-title">Titulo Modal</h4>
+      <button class="close" aria-label="close" type="button" (click)="modal.dismiss()">
+          <span aria-hidden="true">&times;</span>
+      </button>
+  </div>
+  <div class="modal-body">
+      Este es el contenido de este modal.
+      Este es el contenido de este modal.
+      Este es el contenido de este modal.
+      Este es el contenido de este modal.
+      Este es el contenido de este modal.
+      Este es el contenido de este modal.
+      Este es el contenido de este modal.
+      Este es el contenido de este modal.
+      Este es el contenido de este modal.
+  </div>
+  <div class="modal-footer">
+      <button type="button" class="btn btn-success" (click)="modal.close()">Ok!</button>
+  </div>
+</ng-template>
+
+<!-- <button  class="d-flex btn btn-outline-info mx-3" (click)=OpenCenter(contenido)>
+  agregar
+</button> -->
+<div *ngIf="errorMio" class="alert alert-danger mt-4" role="alert">
+  {{errorMio}}
+</div>
+<div class="container-md my-4">
+    <div class="row row-cols-3 tabla-task">
+      <!--  
+        <div  class="col-md-4 col-12">
+            <div class="card text-center text-light">
+                <div class="card-header bg-success text-black">
+                  Tarea 
+                </div>
+                <div class="card-body">
+                    <div class="border p-3 mb-3">
+                        <p class="card-title">Fecha Creacion: 12/10/2021</p>
+                        <p class="card-text">Fecha completado: 12/10/2021</p>
+
+                    </div>
+                  <p class="card-text">Descripción de la tarea.</p>
+                </div>
+                <div class="card-footer text-muted">
+                  <p class="text-success">COMPLETADO</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 col-12">
+            <div class="card text-center text-light">
+                <div class="card-header bg-warning text-black">
+                  Tarea 
+                </div>
+                <div class="card-body">
+                    <div class="border p-3 mb-3">
+                        <p class="card-title">Fecha Creacion: 12/10/2021</p>
+                        <p class="card-text">Fecha completado: Por completar</p>
+
+                    </div>
+                  <p class="card-text">Descripción de la tarea.</p>
+                </div>
+                <div class="card-footer text-muted">
+                  <p class="text-warning">NO COMPLETADO</p>
+                </div>
+            </div>
+        </div>
+        -->
+        <div *ngFor="let task of tasks" id="{{task.id}}"  class="col-md-4 col-12">
+          <div class="card text-center text-light">
+              <div *ngIf="task.completed==true" class="card-header bg-success text-black">
+                {{task.nameTask}}
+              </div>
+              <div *ngIf="task.completed==false" class="card-header bg-warning text-black">
+                {{task.nameTask}}
+              </div>
+              <div class="card-body">
+                  <div class="border p-3 mb-3">
+                      <p class="card-title">Fecha Creacion: 12/10/2021</p>
+                      <p *ngIf="task.completed==true" class="card-text">Fecha completado: 12/10/2021</p>
+                      <p  *ngIf="task.completed==false" class="card-text ">Por completar</p>
+
+                  </div>
+                <p class="card-text">{{task.task}}</p>
+              </div>
+              <div class="card-footer text-muted">
+                <p *ngIf="task.completed==true" class="text-success">COMPLETADO</p>
+                <p *ngIf="task.completed==false" class="text-warning">NO COMPLETADO</p>
+              </div>
+          </div>
+      </div>
+    </div>
+</div>
+
+
