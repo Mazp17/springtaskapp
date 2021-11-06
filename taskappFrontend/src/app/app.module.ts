@@ -10,6 +10,8 @@ import { TasksComponent } from './pages/tasks/tasks.component';
 import { UserComponent } from './pages/user/user.component';
 
 import { HttpClientModule } from '@angular/common/http';
+import { LoginComponent } from './pages/login/login.component';
+import { RegisterComponent } from './pages/register/register.component';
 
 
 @NgModule({
@@ -19,6 +21,8 @@ import { HttpClientModule } from '@angular/common/http';
     FooterComponent,
     TasksComponent,
     UserComponent,
+    LoginComponent,
+    RegisterComponent,
   ],
   imports: [
     BrowserModule,

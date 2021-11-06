@@ -4,8 +4,9 @@ import com.miguel.TaskAppBackend.model.User;
 import com.miguel.TaskAppBackend.services.DAO.UserDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
+//TODO: Implementar metodos de inicio de sesión
 @RestController
+@CrossOrigin(origins = "*")
 @RequestMapping("/api")
 public class UserController {
     @Autowired

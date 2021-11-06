@@ -16,7 +16,7 @@ export class ApiService {
      let headers = new HttpHeaders()
       .set('Type-content', 'aplication/json');
     
-    return this.http.get(this._urlBase + '/tasks', {
+    return this.http.get(this._urlBase + '/task', {
       headers: headers
     });
    }

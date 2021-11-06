@@ -2,7 +2,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ApiService } from 'src/app/services/api.service';
-
+//TODO: Implementar metodos para registro de nuevas tareas.
 @Component({
   selector: 'app-tasks',
   templateUrl: './tasks.component.html',

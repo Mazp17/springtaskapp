@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { LoginComponent } from './pages/login/login.component';
 
 
 import { TasksComponent } from './pages/tasks/tasks.component';
@@ -9,6 +10,7 @@ import { UserComponent } from './pages/user/user.component';
 const routes: Routes = [
   {path: 'home', component: TasksComponent},
   {path: 'user', component: UserComponent},
+  {path: 'login', component: LoginComponent},
   {path: '**', pathMatch: 'full', redirectTo: 'home'}
 
 ];
