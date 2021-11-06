@@ -54,8 +54,26 @@ public class TaskController {
         return taskS.save(task);
     }
 
+    //Metodo para actualizar tareas
+    @PutMapping("/task/update/{id}")
+    public Task updateTask(@PathVariable Integer id, @RequestBody Task task) {
+        Optional<Task> oTask = taskS.findById(id);
 
+        Task taskUpdate = oTask.get();
+        taskUpdate.setNameTask(task.getNameTask());
+        taskUpdate.setTask(task.getTask());
+        taskUpdate.setCompleted(task.isCompleted());
+        return taskS.save(taskUpdate);
+    }
 
+    //metodo para marcar como completedas las tareas
+    @PutMapping("/task/completed/{id}")
+    public Task completedTask(@PathVariable Integer id) {
+        Optional<Task> oTask = taskS.findById(id);
 
+        Task taskUpdate = oTask.get();
+        taskUpdate.setCompleted(true);
+        return taskS.save(taskUpdate);
+    }
 
 }
