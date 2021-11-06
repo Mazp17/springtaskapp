@@ -14,8 +14,15 @@
                 <p>This method allows to obtain all the tasks that are in the DB.</p>
             </li>
             <li>
-                Method: GET, ROUTE: "/task/{idUser}", params: idUser 
+                Method: GET, ROUTE: "/task/{idUser}", params: idUser, 
                 <p> This method allows you to search for tasks created by a specific user. </p> 
+            </li>
+            <li>
+                Method: POST, ROUTE: "/task/{idUser}", params: idUser, task (json)
+                <p>This method receives by path variable the id of the user to which the task belongs. In addition, by Request body (JSON) it receives the task in question. </p>
+            </li>
+            <li>
+                Method: PUT, ROUTE: ""
             </li>
         </ul>
 </ul>
