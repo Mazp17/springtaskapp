@@ -9,6 +9,7 @@ import com.miguel.TaskAppBackend.services.DAO.UserDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -16,6 +17,7 @@ import java.util.Optional;
 @CrossOrigin(origins = "*")
 @RequestMapping("/api")
 public class TaskController {
+
     @Autowired
     private TaskDAO taskS;
 
@@ -23,7 +25,8 @@ public class TaskController {
 
 
     @Autowired
-    public TaskController(UserDAO userDAO) {
+    public TaskController(TaskDAO taskS, UserDAO userDAO) {
+        this.taskS = taskS;
         this.userDAO = userDAO;
     }
 
@@ -63,6 +66,7 @@ public class TaskController {
         taskUpdate.setNameTask(task.getNameTask());
         taskUpdate.setTask(task.getTask());
         taskUpdate.setCompleted(task.isCompleted());
+
         return taskS.save(taskUpdate);
     }
 
@@ -73,7 +77,40 @@ public class TaskController {
 
         Task taskUpdate = oTask.get();
         taskUpdate.setCompleted(true);
+
+        taskUpdate.setCompletedAt(new Date());
         return taskS.save(taskUpdate);
     }
+
+    @PutMapping("/task/noCompleted/{id}")
+    public Task noCompletedTask(@PathVariable Integer id) {
+        Optional<Task> oTask = taskS.findById(id);
+
+        Task taskUpdate = oTask.get();
+        taskUpdate.setCompleted(false);
+
+        taskUpdate.setCompletedAt(null);
+        return taskS.save(taskUpdate);
+    }
+
+    @PutMapping("/task/deleted/{id}")
+    public Task deleted(@PathVariable Integer id) {
+        Optional<Task> oTask = taskS.findById(id);
+        Task taskUpdate = oTask.get();
+        taskUpdate.setDeleted(true);
+        taskUpdate.setDeletedAt(new Date());
+
+        return  taskS.save(taskUpdate);
+    }
+    @PutMapping("/task/noDeleted/{id}")
+    public Task noDeleted(@PathVariable Integer id) {
+        Optional<Task> oTask = taskS.findById(id);
+        Task taskUpdate = oTask.get();
+        taskUpdate.setDeleted(false);
+        taskUpdate.setDeletedAt(null);
+
+        return  taskS.save(taskUpdate);
+    }
+
 
 }

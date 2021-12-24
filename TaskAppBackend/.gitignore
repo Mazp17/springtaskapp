@@ -31,3 +31,5 @@ build/
 
 ### VS Code ###
 .vscode/
+jwt.pem
+/src/main/java/com/miguel/TaskAppBackend/auth/JwtConfig.java

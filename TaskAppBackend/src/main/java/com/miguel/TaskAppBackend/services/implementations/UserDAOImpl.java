@@ -3,40 +3,88 @@ package com.miguel.TaskAppBackend.services.implementations;
 import com.miguel.TaskAppBackend.model.User;
 import com.miguel.TaskAppBackend.repository.UserRepository;
 import com.miguel.TaskAppBackend.services.DAO.UserDAO;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.validation.Valid;
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
-public class UserDAOImpl implements UserDAO {
+public class UserDAOImpl implements UserDetailsService, UserDAO {
+
+    private Logger logger = LoggerFactory.getLogger(UserDAOImpl.class);
 
     @Autowired
     private UserRepository repository;
 
     @Override
     @Transactional(readOnly = true)
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        User user = repository.findByName(username);
+        if (user == null) {
+            logger.error("Error in loggin, user not exists: '" + username + "'");
+            throw new UsernameNotFoundException("Error in loggin, user not exists: '" + username + "'");
+        }
+
+
+        List<GrantedAuthority> authorities = user.getRoles()
+                .stream()
+                .map(role -> new SimpleGrantedAuthority(role.getName()))
+                .peek(authority -> logger.info("Role: " + authority.getAuthority()))
+                .collect(Collectors.toList());
+        return new org.springframework.security.core.userdetails.User(
+                user.getName(),
+                user.getPassword(),
+                user.getEnabled(),
+                true,
+                true,
+                true,
+                authorities
+        );
+    }
+
+
+    @Transactional(readOnly = true)
     public Optional<User> findById(Integer id) {
 
         return repository.findById(id);
     }
 
+    @Transactional(readOnly = true)
+    public User findByEmail(String email) {
+
+        return repository.findByEmail(email);
+    }
+
     @Override
+    public User findByName(String name) {
+        return repository.findByName(name);
+    }
+
     @Transactional
     public User save(User user) {
         return repository.save(user);
     }
 
-    @Override
     @Transactional
     public Iterable<User> findAll() {
         return repository.findAll();
     }
 
-    @Override
     @Transactional
     public void deleteById(Integer id) {
         repository.deleteById(id);
     }
+
+
 }
