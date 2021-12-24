@@ -1,8 +1,51 @@
-<p>login works!</p>
-<!--TODO: Implementar formulario de incio de sesión-->
-<form class="container-sm" action="">
-    <div class="mb-3">
-        <label for=""></label>
-        <input class="form-control" type="text">
+<div class="container-md text-white mt-3 mb-4">
+    <div class="row w-150 justify-content-center aling-items-center">
+      <div class="col-12">
+        <div class="alert alert-danger" role="alert">
+          El usuario no fue encontrado
+        </div>
+      </div>
+      <div class="col-sm-12 col-md-6 border bg-white text-black rounded p-3">
+        <form [formGroup]="loginUser" (ngSubmit)="onSubmit()" class="" >
+          <div class="mb-3">
+            <label for="email" class="form-label">Email address</label>
+            <input 
+            required 
+            type="email" 
+            formControlName="email" 
+            class="form-control" 
+            name="email" 
+            id="email">
+            <div class="invalid-feedback">
+              El email, es obligatorio.
+            </div>
+            <div class="invalid-feedback" >
+              El email esta mal escrito
+            </div>
+            <div id="email" class="form-text text-muted">Nunca debes compartir tu correo con otra persona.</div> 
+          </div>
+          <div class="mb-3">
+            <label for="password" class="form-label">Password</label>
+            <input 
+            required 
+            type="password" 
+            formControlName="password" 
+            class="form-control" 
+            name="password" 
+            id="password">
+            <div 
+            class="invalid-feedback">
+              Las contraseñas no pueden estar vacias
+            </div>
+          </div>
+          <div class="mb-3 form-check">
+            <input required type="checkbox" class="form-check-input" id="exampleCheck1">
+            <label style="font-size: .8rem;" class="form-check-label" for="exampleCheck1">Estoy de acuerdo con las politicas de privacidad</label>
+          </div>
+          <button type="submit"  class="btn btn-primary">Inciar sesión</button>
+          <div id="login" class="form-text text-muted">¿Aún no te encuentras registrado? <a href="" routerLink="/register">Registrate ahora!</a></div> 
+        </form>
+      </div>
     </div>
-</form>
+  
+  </div>

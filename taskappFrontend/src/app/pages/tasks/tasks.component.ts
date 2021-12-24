@@ -34,5 +34,7 @@ export class TasksComponent{
    OpenCenter(contenido: any){
      this.modal.open(contenido);
    }
+
+   
 }
 

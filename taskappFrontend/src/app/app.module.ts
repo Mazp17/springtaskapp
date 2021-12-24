@@ -12,6 +12,7 @@ import { UserComponent } from './pages/user/user.component';
 import { HttpClientModule } from '@angular/common/http';
 import { LoginComponent } from './pages/login/login.component';
 import { RegisterComponent } from './pages/register/register.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -27,7 +28,8 @@ import { RegisterComponent } from './pages/register/register.component';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

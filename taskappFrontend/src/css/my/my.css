@@ -1,0 +1,10 @@
+:root { 
+    --color-grey-1: #4b4b4b; 
+}
+
+.bg-grey-1 {
+    background-color: var(--color-grey-1) !important;
+}
+
+
+
