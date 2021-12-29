@@ -21,16 +21,12 @@ export class LoginComponent implements OnInit {
       password: ['', Validators.required]
   
     })
-    if(this.authService.isAuthenticated()) {
-      this.router.navigate(['/home']);
-      swal.fire('Login', 'Hola ' + this.authService.usuario.username + ' Ya iniciaste sesión!', 'info');
-    }
   }
 
   ngOnInit(): void {
     if(this.authService.isAuthenticated()) {
       this.router.navigate(['/home']);
-      swal.fire('Login', 'Hola ' + this.authService.usuario.username + ' Ya iniciaste sesión!', 'info');
+      swal.fire('Login', 'Hola ' + this.authService.usuario.username + '.' + ' Ya iniciaste sesión', 'info');
     }
   }
 
@@ -40,7 +36,7 @@ export class LoginComponent implements OnInit {
 
     this.authService.login(this.loginUser.value).subscribe(response => {
       console.log(response);
-      
+
       this.authService.guardarUsuario(response.access_token);
       this.authService.guardarToken(response.access_token);
       let user = this.authService.usuario;

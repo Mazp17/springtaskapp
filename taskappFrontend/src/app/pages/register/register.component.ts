@@ -58,7 +58,7 @@ export class RegisterComponent implements OnInit {
 
   ngOnInit(): void {  
     if(this.authService.isAuthenticated()) {
-      Swal.fire('Login', 'Hola ' + this.authService.usuario.username + ' Ya iniciaste sesión!', 'info');
+      Swal.fire('Login', 'Hola ' + this.authService.usuario.username + '. Ya iniciaste sesión!', 'info');
       this.router.navigate(['/home']);
     }
   }
