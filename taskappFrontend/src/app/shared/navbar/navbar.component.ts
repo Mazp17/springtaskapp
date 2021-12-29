@@ -14,11 +14,20 @@ export class NavbarComponent{
   }
 
   logout(): void {
+
+    //let token = this.authService.token;
+    //console.log(token.split(".")[1])
+    //console.log(this.authService.token);
+
+    
+    let username = this.authService.usuario.username;
+    this.authService.logout();
     Swal.fire('Nos vemos pronto!',
-     'Tu sesión se ha cerrado satisfactoriamente, hasta luego ' + this.authService.usuario.username,
+     'Tu sesión se ha cerrado satisfactoriamente, hasta luego ' + username,
      'info');
     this.router.navigate(['/login']);
-    this.authService.logout();
+
+    
   }
   
 

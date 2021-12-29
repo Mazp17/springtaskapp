@@ -36,11 +36,10 @@ export class AuthGuard implements CanActivate {
   //metodo o funcion, que analiza si el token esta expirado
   isTokenExpired(): boolean {
     let token = this.authService.token;
-    let payload = this.authService.obtenerDatosToken(token);
-    let now = new Date().getTime() / 1000;
-
-    if(payload.exp < now) {
-      return true;
+      let payload = this.authService.obtenerDatosToken(token);
+      let now = new Date().getTime() / 1000;
+      if(payload.exp < now) {
+        return true;
     }
     return false;
   }
