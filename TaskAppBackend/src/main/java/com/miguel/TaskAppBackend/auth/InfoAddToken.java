@@ -24,8 +24,9 @@ public class InfoAddToken implements TokenEnhancer {
         User user = repository.findByName(authentication.getName());
 
         Map<String, Object> info = new HashMap<>();
-        info.put("id: ", user.getId());
-        info.put("email: ", user.getEmail());
+        info.put("id", user.getId());
+        info.put("username", user.getName());
+        info.put("email", user.getEmail());
         ((DefaultOAuth2AccessToken) accessToken).setAdditionalInformation(info);
         return accessToken;
     }

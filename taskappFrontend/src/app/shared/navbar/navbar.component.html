@@ -1,54 +1,45 @@
-<!-- <nav class="navbar bg-navbar navbar-expand-lg ">
-    <div class="container-fluid">
-      <a class="navbar-brand text-white" routerLink="home">TaskApp <i class="bi bi-book-fill"></i></a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-  
-      <div class="collapse navbar-collapse" id="navbarColor01">
-        <ul class="navbar-nav me-auto">
-          <li  class="nav-item">
-            <a class="nav-link text-white active" routerLinkActive="active" routerLink="home">Tareas
-            </a>
-          </li>
-          <li class="nav-item ">
-            <a class="nav-link text-white" routerLinkActive="active" routerLink="user">Mi usuario</a>
-          </li> 
-          
-        </ul>
-        <a routerLink="home" class="d-flex btn btn-outline-info mx-3" >
-          agregar
-        </a>
-        <form class="d-flex">
-          <input class="form-control me-sm-2" type="text" placeholder="Search">
-          <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
-        </form>
-        
-      </div>
-    </div>
-  </nav> -->
-  <nav class="navbar navbar-expand-lg navbar-dark bg-grey-1">
-    <div class="container-fluid">
-      <a class="navbar-brand" href="#">Task App <i class="bi bi-check2-square"></i></a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
-        
-        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-          <li class="nav-item">
-            <a class="nav-link" routerLinkActive="active" aria-current="page" routerLink="home">Home</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" routerLinkActive="active" routerLink="register">Link</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
-          </li>
-        </ul>
-        <div class="d-flex">
-          <a class="nav-link text-light text-center" href=""  routerLink="/login"><i style="font-size: 2rem;" class="bi bi-person-circle"></i></a>
+
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-grey-1">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">Task App <i class="bi bi-check2-square"></i></a>
+    
+    <div *ngIf="authService.isAuthenticated()" class="collapse navbar-collapse" id="navbarToggleExternalContent">
+      <div class="d-none d-lg-block vr text-light mx-2"></div>
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link" routerLinkActive="active" aria-current="page" routerLink="home">
+            <i class="bi bi-list-task"></i> 
+            Tareas
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLinkActive="active" routerLink="register">
+            <i class="bi bi-trash"></i>
+            Papelera
+          </a>
+        </li>
+        <div class="d-none d-lg-block vr text-light mx-3"></div>
+        <li class="nav-item">
+          <a class="nav-link" href="#" tabindex="-1" aria-disabled="true">
+            <i class="bi bi-person-circle"></i> 
+            Mi Perfil
+          </a>
+        </li>
+      </ul>
+      <div *ngIf="authService.isAuthenticated()" class="d-flex aling-items-center flex-column">
+        <div class="d-flex d-grid gap-2 col-12 mx-auto mb-2 logout">
+          <button (click)="logout()" type="button" class="btn btn-primary btn">
+            Cerrar sesión
+          </button>
         </div>
       </div>
     </div>
-  </nav>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarToggleExternalContent"          aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+  </div>
+</nav>
+
+
+

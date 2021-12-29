@@ -1,8 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { AbstractControl, Form, FormBuilder, FormControl, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { User } from 'src/app/interfaces/user.interface';
 import { ApiService } from 'src/app/services/api.service';
+import { AuthService } from 'src/app/services/auth.service';
+import Swal from 'sweetalert2';
 import { UserComponent } from '../user/user.component';
 
 @Component({
@@ -37,7 +40,10 @@ export class RegisterComponent implements OnInit {
   }
   public registerUser: FormGroup;
    
-  constructor(public apiService: ApiService, public fb: FormBuilder) {
+  constructor(public apiService: ApiService,
+     public fb: FormBuilder,
+     private authService: AuthService,
+     private router: Router) {
     this.registerUser = this.fb.group({
       username : ['', [Validators.required]],
       email: ['', [Validators.required, Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]],
@@ -51,6 +57,10 @@ export class RegisterComponent implements OnInit {
    }
 
   ngOnInit(): void {  
+    if(this.authService.isAuthenticated()) {
+      Swal.fire('Login', 'Hola ' + this.authService.usuario.username + ' Ya iniciaste sesión!', 'info');
+      this.router.navigate(['/home']);
+    }
   }
 
   onSubmit(data: User) {
