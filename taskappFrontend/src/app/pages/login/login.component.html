@@ -5,23 +5,26 @@
           El usuario no fue encontrado
         </div> -->
         <div *ngIf="loginWrong" class="alert alert-danger" role="alert">
-          Usuario o contraseña son incorrectas. 
+          El Email o la contraseña son incorrectas. 
         </div>
       </div>
       <div class="col-sm-12 col-md-6 border bg-white text-black rounded p-3">
         <form [formGroup]="loginUser" (ngSubmit)="onSubmit()" class="" >
           <div class="mb-3">
-            <label for="username" class="form-label">Nombre de usuario</label>
+            <label for="email" class="form-label">Email</label>
             <input 
             required 
-            [ngClass]="{'is-invalid': f.username.errors?.required && (f.username.dirty || f.username.touched), 'is-valid': !f.username.errors?.required}"
+            [ngClass]="{'is-invalid': f.email.errors?.pattern || f.email.errors?.required && (f.email.dirty || f.email.touched), 'is-valid': !f.email.errors?.required}"
             type="email" 
-            formControlName="username" 
+            formControlName="email" 
             class="form-control" 
-            name="username" 
-            id="username">
-            <div class="invalid-feedback">
-              El usuario, es obligatorio
+            name="email" 
+            id="email">
+            <div class="invalid-feedback" *ngIf="f.email.errors?.required">
+              El email, es obligatorio.
+            </div>
+            <div class="invalid-feedback" *ngIf="f.email.errors?.pattern">
+              El email esta mal escrito.
             </div>
           </div>
           <div class="mb-3">

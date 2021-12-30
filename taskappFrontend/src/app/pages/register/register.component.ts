@@ -22,6 +22,12 @@ export class RegisterComponent implements OnInit {
   passNull: any = false;
   messageErrorBack: String = ""; 
 
+  public noWhitespaceValidator(control: FormControl) {
+    const isWhitespace = (control.value || '').trim().length === 0;
+    const isValid = !isWhitespace;
+    return isValid ? null : { 'whitespace': true };
+}
+
   passwordErrorValidator(control: any = AbstractControl) {
     const password: any = control.get('password').value; // get password from our password form control
     const confirmPassword: any = control.get('confirmPassword').value; // get password from our confirmPassword form control

@@ -15,9 +15,9 @@
     <div class="col-sm-12 col-md-6 border bg-white text-black rounded p-3">
       <form [formGroup]="registerUser" (ngSubmit)="onSubmit(registerUser.value)" class="" >
         <div class="mb-3">
-          <label for="username">Username</label>
+          <label for="username">Tu nombre</label>
           <input 
-          [ngClass]="{'is-invalid': f.username.errors?.required && (f.username.dirty || f.username.touched) || errorUser, 'is-valid': !f.username.errors?.required}"
+          [ngClass]="{'is-invalid': f.username.errors?.pattern || f.username.errors?.required && (f.username.dirty || f.username.touched) , 'is-valid': f.username.errors?.pattern || !f.username.errors?.required && (f.username.dirty || f.username.touched)}"
           type="text" 
           formControlName="username" 
           class="form-control" 
@@ -26,13 +26,13 @@
           required
           >
           <div class="invalid-feedback" *ngIf="f.username.errors?.required" >
-            El nombre de usuario es obligatorio, con este te identificaras dentro de nuestra aplicación!
+            El nombre de usuario es obligatorio. 
           </div>
           </div>
           <div class="mb-3">
-            <label for="email" class="form-label">Email address</label>
+            <label for="email" class="form-label">Email</label>
             <input 
-            [ngClass]="{'is-invalid': f.email.errors?.pattern || f.email.errors?.required  && (f.email.dirty || f.email.touched), 'is-valid': f.email.errors?.pattern || !f.email.errors?.required && (f.email.dirty || f.email.touched)}"
+            [ngClass]="{'is-invalid': f.email.errors?.pattern || f.email.errors?.required  && (f.email.dirty || f.email.touched) || errorUser, 'is-valid':  !f.email.errors?.required && (f.email.dirty || f.email.touched)}"
             required 
             type="email" 
             formControlName="email" 
@@ -40,7 +40,7 @@
             name="email" 
             id="email">
             <div class="invalid-feedback" *ngIf="f.email.errors?.required">
-              El email, es obligatorio.
+              El email, es obligatorio, con este te identificaras dentro de nuestra aplicación!
             </div>
             <div class="invalid-feedback" *ngIf="f.email.errors?.pattern">
               El email esta mal escrito
@@ -48,7 +48,7 @@
             <div id="email" class="form-text text-muted">Nunca debes compartir tu correo con otra persona.</div> 
           </div>
           <div class="mb-3">
-            <label for="password" class="form-label">Password</label>
+            <label for="password" class="form-label">Contraseña</label>
             <input 
             [ngClass]="{'is-invalid': f.password.errors?.['passNull']  && (f.password.dirty || f.password.touched) || f.confirmPassword.errors?.['passNotSame'], 'is-valid': !f.password.errors?.['passNull'] && (f.password.dirty || f.password.touched) || f.confirmPassword.errors?.['passNotSame']}"
             required 
@@ -63,7 +63,7 @@
               Las contraseñas no pueden estar vacias
             </div>
             <br>  
-            <label for="confirmPassword" class="form-label">Confirm your Password</label>
+            <label for="confirmPassword" class="form-label">Confirma tu contraseña</label>
             <input 
             [ngClass]="{'is-invalid': f.password.errors?.['passNull']  && (f.confirmPassword.dirty || f.confirmPassword.touched) || f.confirmPassword.errors?.['passNotSame'], 'is-valid': !f.password.errors?.['passNull'] && (f.confirmPassword.dirty || f.confirmPassword.touched) || f.confirmPassword.errors?.['passNotSame']}"
             required
@@ -81,7 +81,7 @@
           <input required type="checkbox" class="form-check-input" id="exampleCheck1">
           <label style="font-size: .8rem;" class="form-check-label" for="exampleCheck1">Estoy de acuerdo con las politicas de privacidad</label>
         </div>
-        <button [disabled]="registerUser.invalid" type="submit"  class="btn btn-primary">Submit</button>
+        <button [disabled]="registerUser.invalid" type="submit"  class="btn btn-primary">Registrarme</button>
         <div id="login" class="form-text text-muted">¿Ya estas registrado, <a href="" routerLink="/login">inicia sesión aquí.</a></div> 
       </form>
     </div>

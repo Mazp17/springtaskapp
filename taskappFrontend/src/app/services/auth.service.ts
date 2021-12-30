@@ -49,7 +49,7 @@ export class AuthService {
     });
 
     let params = new URLSearchParams();
-    params.set('username', user.username);
+    params.set('username', user.email);
     params.set('password', user.password);
     params.set('grant_type', 'password');
     console.log(params.toString());
@@ -64,7 +64,8 @@ export class AuthService {
   guardarUsuario(accessToken: string): void {
     let payload = this.obtenerDatosToken(accessToken);
     this._usuario = new User();
-    this._usuario.username = payload.user_name;
+    this._usuario.id = payload.id;
+    this._usuario.username = payload.username;
     this._usuario.email = payload.email;
 
     sessionStorage.setItem('user', JSON.stringify(this._usuario));

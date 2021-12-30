@@ -25,3 +25,14 @@
 .cursor-pointer {
     cursor: pointer;
 }
+
+.border-rounded {
+    border-radius: 1rem !important; 
+}
+
+footer {
+    position: fixed !important;
+    clear: both !important;
+    bottom: 0 !important;
+    width: 100%;
+}

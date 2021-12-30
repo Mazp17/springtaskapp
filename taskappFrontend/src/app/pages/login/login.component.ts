@@ -17,7 +17,7 @@ export class LoginComponent implements OnInit {
   public loginUser: FormGroup;
   constructor(public fb: FormBuilder, public apiService: ApiService, public authService: AuthService, private router: Router) {
     this.loginUser = this.fb.group({
-      username: ['', [Validators.required]],
+      email: ['', [Validators.required, Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]],
       password: ['', Validators.required]
   
     })
@@ -39,11 +39,11 @@ export class LoginComponent implements OnInit {
 
       this.authService.guardarUsuario(response.access_token);
       this.authService.guardarToken(response.access_token);
-      let user = this.authService.usuario;
+      let user = this.authService.usuario.username;
       this.loginWrong = false;
       this.router.navigate(["/home"]);
 
-      swal.fire('Inicio de sesión', `Hola, ${user.username}.
+      swal.fire('Inicio de sesión', `Hola, ${user}.
       Has iniciado sesión satisfactoriamente.`, 'success');
       
       return;
