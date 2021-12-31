@@ -6,6 +6,7 @@ import com.miguel.TaskAppBackend.services.DAO.RoleDAO;
 import com.miguel.TaskAppBackend.services.DAO.UserDAO;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.dao.DataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -55,11 +56,11 @@ public class UserController {
             return new ResponseEntity<Map<String, Object>>(response, HttpStatus.BAD_REQUEST);
         }
 
-        User userSearch = userService.findByName(user.getName());
+        User userSearch = userService.findByEmail(user.getEmail());
 
         if(userSearch != null) {
             response.put("error", "user already exists");
-            response.put("message", "username is already exists");
+            response.put("message", "El email ya existe");
             response.put("code", "userExists");
             return new ResponseEntity<Map<String, Object>>(response, HttpStatus.BAD_REQUEST);
         }
@@ -75,19 +76,22 @@ public class UserController {
                 userNew = userService.save(user);
             } else {
                 response.put("message", "not specify typeUser in route or incorrect number in path, search in documentation api");
-                return new ResponseEntity<Map<String,Object>>(response, HttpStatus.BAD_REQUEST);
+                return new ResponseEntity<Map<String,Object>>
+                        (response, HttpStatus.BAD_REQUEST);
             }
 
         } catch (DataAccessException e) {
             response.put("message", "An error occurred while inserting in the BD");
             response.put("error", e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
-            return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<Map<String, Object>>
+                    (response, HttpStatus.INTERNAL_SERVER_ERROR);
         }
 
         response.put("message", "User successfully inserted");
         response.put("user", userNew);
 
-        return new ResponseEntity<Map<String, Object>>(response, HttpStatus.CREATED);
+        return new ResponseEntity<Map<String, Object>>
+                (response, HttpStatus.CREATED);
     };
 
     @GetMapping("/user/{email}")

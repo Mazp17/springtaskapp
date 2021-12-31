@@ -1,34 +1,25 @@
 <!--TODO: implementar formulario para ingreso de nuevas tareas-->
-<ng-template #contenido let-modal>
+<ng-template #addTask let-modal >
   <div class="modal-header">
-      <h4 class="modal-title">Titulo Modal</h4>
-      <button class="close" aria-label="close" type="button" (click)="modal.dismiss()">
-          <span aria-hidden="true">&times;</span>
-      </button>
+    <h4 class="modal-title">Titulo Modal</h4>
+    <button (click)="this.closeModal()" type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
   </div>
   <div class="modal-body">
-      Este es el contenido de este modal.
-      Este es el contenido de este modal.
-      Este es el contenido de este modal.
-      Este es el contenido de este modal.
-      Este es el contenido de este modal.
-      Este es el contenido de este modal.
-      Este es el contenido de este modal.
-      Este es el contenido de este modal.
-      Este es el contenido de este modal.
+    Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorem, temporibus consectetur animi necessitatibus ipsum fugit, rerum incidunt error laboriosam doloremque alias distinctio possimus assumenda, nulla quos accusantium voluptate dolore illum.
   </div>
   <div class="modal-footer">
-      <button type="button" class="btn btn-success" (click)="modal.close()">Ok!</button>
+    <button type="button" class="btn btn-success" (click)="modal.close()">Ok!</button>
   </div>
 </ng-template>
+
 
 
 <div *ngIf="errorMio" class="alert alert-danger mt-4" role="alert">
   {{errorMio}}
 </div>
-<div class="container-md my-4">
-    <div class="row row-cols-4 tabla-task">
-        <div *ngFor="let task of tasks" id="{{task.id}}"  class="col-md-3 col-12">
+<div class="container-lg my-4">
+    <div class="row row-cols-3 tabla-task">
+        <div *ngFor="let task of tasks" id="{{task.id}}"  class="col-md-4 col-sm-6 col-12">
           <div class="card text-center bg-secondary text-white">
               <div *ngIf="task.completed==true" class="card-header bg-success">
                 {{task.nameTask}}
@@ -43,16 +34,13 @@
                       <p  *ngIf="task.completed==false" class="card-text ">Por completar</p>
                   </div>
                 <p class="card-text">{{task.task}}</p>
-                <!--TEMPROAL-->
-                <hr>
-                <p class="card-text">{{task.user.name}}</p>
               </div>
                 <div *ngIf="task.completed==true" class="card-footer bg-success">COMPLETADO</div>
                 <div *ngIf="task.completed==false" class="card-footer bg-warning">NO COMPLETADO</div>
           </div>
       </div>
     </div>
-    <a href="#" class="btn-flotante"><i class="bi bi-pencil-square"></i></a>
+    <a (click)="this.openModal(this.modal)" class="btn-flotante cursor-pointer"><i class="bi bi-pencil-square"></i></a>
 </div>
 
 

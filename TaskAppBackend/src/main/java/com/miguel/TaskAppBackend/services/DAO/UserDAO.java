@@ -1,7 +1,6 @@
 package com.miguel.TaskAppBackend.services.DAO;
 
 import com.miguel.TaskAppBackend.model.User;
-import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 

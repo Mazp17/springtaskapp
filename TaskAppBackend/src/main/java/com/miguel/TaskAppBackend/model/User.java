@@ -5,6 +5,9 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
@@ -12,6 +15,7 @@ import javax.validation.constraints.NotNull;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 import java.util.Set;
 
 @Entity
@@ -33,7 +37,7 @@ public class User {
 
     @NotEmpty
     @NotNull
-    @Column(name = "email")
+    @Column(name = "email", unique = true)
     private String email;
 
     @Column(name = "created_at")
@@ -43,7 +47,7 @@ public class User {
             mappedBy = "user",
             fetch = FetchType.LAZY
     )
-    private Set<Task> tasks;
+    private List<Task> tasks;
 
     @ManyToMany(
             fetch = FetchType.LAZY,
@@ -80,11 +84,11 @@ public class User {
     }
 
     @JsonBackReference
-    public Set<Task> getTasks() {
+    public List<Task> getTasks() {
         return tasks;
     }
 
-    public void setTasks(Set<Task> tasks) {
+    public void setTasks(List<Task> tasks) {
         this.tasks = tasks;
     }
 
@@ -153,10 +157,8 @@ public class User {
                 ", password='" + password + '\'' +
                 ", email='" + email + '\'' +
                 ", createdAt=" + createdAt +
-                ", roles=" + roles +
                 ", enabled=" + enabled +
                 '}';
     }
-
 }
 

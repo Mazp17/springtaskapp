@@ -1,6 +1,5 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Router } from '@angular/router';
 import { throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { AuthService } from './auth.service';
@@ -10,11 +9,14 @@ import { AuthService } from './auth.service';
 })
 export class ApiService {
   _urlBase = 'http://localhost:8080/api';
-  
-  constructor(private http: HttpClient) {}
 
-  getTasks() {
-  return this.http.get(this._urlBase + '/task').pipe(
+  
+  constructor(private http: HttpClient,
+    public authService: AuthService) {}
+
+  getTasks(user: any) {
+    console.log(user);
+  return this.http.post(this._urlBase + '/task', user).pipe(
     catchError(e => {
       return throwError(e);
     })
@@ -24,6 +26,7 @@ export class ApiService {
   registerUser(user: any){
     return this.http.post(this._urlBase + '/user/register/1', user);
   }
+
   
   /*
   private IsNotAuthorization(e: any): boolean { 

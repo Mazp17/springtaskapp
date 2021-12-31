@@ -14,7 +14,6 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -29,11 +28,11 @@ public class UserDAOImpl implements UserDetailsService, UserDAO {
 
     @Override
     @Transactional(readOnly = true)
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user = repository.findByName(username);
+    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+        User user = repository.findByEmail(email);
         if (user == null) {
-            logger.error("Error in loggin, user not exists: '" + username + "'");
-            throw new UsernameNotFoundException("Error in loggin, user not exists: '" + username + "'");
+            logger.error("Error in loggin, user not exists: '" + email + "'");
+            throw new UsernameNotFoundException("Error in loggin, user not exists: '" + email + "'");
         }
 
 
@@ -43,7 +42,7 @@ public class UserDAOImpl implements UserDetailsService, UserDAO {
                 .peek(authority -> logger.info("Role: " + authority.getAuthority()))
                 .collect(Collectors.toList());
         return new org.springframework.security.core.userdetails.User(
-                user.getName(),
+                user.getEmail(),
                 user.getPassword(),
                 user.getEnabled(),
                 true,
@@ -56,7 +55,6 @@ public class UserDAOImpl implements UserDetailsService, UserDAO {
 
     @Transactional(readOnly = true)
     public Optional<User> findById(Integer id) {
-
         return repository.findById(id);
     }
 

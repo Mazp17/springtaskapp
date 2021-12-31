@@ -39,3 +39,5 @@
 - Code: 1000, represent error in user or data  of user.
     - 1001: user not exist
     - 1002: user exist (mainly in the registry)
+    - 1003: Bad credentials of the user (email or password is incorrect)
+
