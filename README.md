@@ -26,3 +26,16 @@
             </li>
         </ul>
 </ul>
+
+<hr>
+##BACKEND
+
+###Codes error
+
+<p>These codes represent error in the logic backend-server. As request or errors or procesing data</p>
+
+###Our own codes errors
+
+- Code: 1000, represent error in user or data  of user.
+    - 1001: user not exist
+    - 1002: user exist (mainly in the registry)
