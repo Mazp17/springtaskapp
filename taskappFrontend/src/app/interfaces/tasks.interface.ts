@@ -3,6 +3,8 @@ export interface Tasks {
     nameTask?: string;
     task?: string;
     completed?: boolean;
-    createdAt?: string;
+    createdAt?: Date;
     idUser?: number;
+    deleted?: boolean;
+    deletedAt?: Date;
 }

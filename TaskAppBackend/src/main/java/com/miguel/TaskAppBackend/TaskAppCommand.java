@@ -1,14 +1,7 @@
 package com.miguel.TaskAppBackend;
 
-import com.miguel.TaskAppBackend.model.Task;
-import com.miguel.TaskAppBackend.model.User;
-import com.miguel.TaskAppBackend.services.DAO.TaskDAO;
-import com.miguel.TaskAppBackend.services.DAO.UserDAO;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
-
-import java.util.Optional;
 
 @Component
 public class TaskAppCommand implements CommandLineRunner {

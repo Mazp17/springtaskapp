@@ -1,0 +1,32 @@
+<div class="card bg-dark text-white outline outline-grey-2 w-100 h-100" style="width: 18rem;">
+  <div class="card-body">
+    <h5 class="card-title">
+      <strong>
+        <a class="text-decoration-none text-white stretched-link"
+        (click)="this.clickCardFunction(task.id, task.completed)">
+          {{task.nameTask}}
+        </a>
+      </strong>
+    </h5>
+    <p class="card-text">
+      {{task.task}}
+    </p>
+  </div>
+  <div class="card-footer">
+    <div class="d-flex justify-content-around">
+      <span class="text-muted"> 
+        {{this.datesFunctions.formatDate(task.createdAt)}}
+      </span>
+      <span 
+      class="text-success"
+      *ngIf="task.completed">
+        Completado
+      </span>
+      <span 
+      class="text-warning"
+      *ngIf="!task.completed">
+        Pendiente
+      </span>
+    </div>
+  </div>
+</div>  

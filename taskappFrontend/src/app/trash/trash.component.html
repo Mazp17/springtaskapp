@@ -1,0 +1,14 @@
+<div class="container-lg mt-4">
+  <div *ngIf="this.tasksDeletedNull" class="alert alert-info" role="alert">
+    No tienes tareas eliminadas!
+  </div>
+  <div class="row row-cols-3">
+    <div 
+    *ngFor="let task of tasksDeleted" 
+    class="text-white col-md-4 col-sm-6 col-12">
+      <app-task-template 
+      [task]="task"
+      [clickCardFunction]="openOptions"></app-task-template>     
+    </div>
+  </div>
+</div>

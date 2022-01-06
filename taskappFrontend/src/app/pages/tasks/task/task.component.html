@@ -1,0 +1,41 @@
+<div class="container mt-4">
+  <div class="row d-flex justify-content-center">
+    <div class="card col-sm-8 outline outline-grey-2 bg-dark text-white">
+      <div class="card-header border-bottom-grey-2">
+          <span class="fs-4 fw-bold">
+            Edita esta tarea!
+          </span>
+      </div>
+      <div class="card-body">
+          <form [formGroup]="taskPut" (ngSubmit)="onSubmit()">
+            <div class="form-floating mb-3">
+              <input 
+              type="text" 
+              class="form-control" 
+              formControlName="nameTask"
+              id="nameTask" 
+              name="nameTask"
+              placeholder="name@example.com" 
+              value="{{task.nameTask}}">
+              <label class="text-dark" for="nameTask">Nombre de la tarea</label>
+            </div>
+            <hr>
+            <div class="form-floating mb-3">
+              <input 
+              formControlName="task"
+              type="text" 
+              class="form-control" 
+              id="task" 
+              name="task"
+              placeholder="name@example.com" 
+              value="{{task.task}}">
+              <label class="text-dark" for="task">¿Cual es la tarea?</label>
+            </div>
+            <a routerLink="home" class="btn btn-danger me-2">Quiero regresar</a>
+            <button type="submit" class="btn btn-success">Quiero guardar los cambios</button>        
+          </form>
+      </div>
+    </div>
+  </div>
+  
+</div>

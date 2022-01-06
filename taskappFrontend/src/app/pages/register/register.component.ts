@@ -76,9 +76,15 @@ export class RegisterComponent implements OnInit {
       password: data.password      
     }).subscribe(
       () => {
+        let name = this.authService.usuario.username;
         this.error = false;
         this.errorUser = false;
         this.submit = true; 
+        this.router.navigate(['/home']);
+        
+        Swal.fire('Inicio de sesión', `Hola, ${name}.
+        Has iniciado sesión satisfactoriamente.`, 'success');
+
       },
       (error) => {
         console.error(error);

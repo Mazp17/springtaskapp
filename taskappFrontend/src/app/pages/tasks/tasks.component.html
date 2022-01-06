@@ -1,46 +1,119 @@
-<!--TODO: implementar formulario para ingreso de nuevas tareas-->
 <ng-template #addTask let-modal >
   <div class="modal-header">
-    <h4 class="modal-title">Titulo Modal</h4>
+    <h4 class="modal-title">Crea una nueva tarea!</h4>
     <button (click)="this.closeModal()" type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
   </div>
-  <div class="modal-body">
-    Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorem, temporibus consectetur animi necessitatibus ipsum fugit, rerum incidunt error laboriosam doloremque alias distinctio possimus assumenda, nulla quos accusantium voluptate dolore illum.
-  </div>
-  <div class="modal-footer">
-    <button type="button" class="btn btn-success" (click)="modal.close()">Ok!</button>
-  </div>
+    <form [formGroup]="newTaskForm" (ngSubmit)="saveTask(newTaskForm.value)">
+      <div class="modal-body">
+        <div class="form-floating mb-3">
+          <input 
+          [ngClass]="{'is-invalid': f.nameTask.errors?.required && (f.nameTask.dirty || f.nameTask.touched) , 'is-valid': f.nameTask.errors?.pattern || !f.nameTask.errors?.required && (f.nameTask.dirty || f.nameTask.touched)}"
+          type="text"
+          name="nameTask"
+          formControlName="nameTask"
+          class="form-control" 
+          id="nameTask" 
+          placeholder="Nombre de la tarea">
+          <label for="nameTask">¿Que titulo tendra tu tarea?</label>
+          <div class="invalid-feedback" *ngIf="f.nameTask.errors?.required" >
+            El nombre de la tarea es obligatorio. 
+          </div>
+        </div>
+        <div class="form-floating">
+          <input 
+          [ngClass]="{'is-invalid': f.task.errors?.required && (f.task.dirty || f.task.touched) , 'is-valid': f.task.errors?.pattern || !f.task.errors?.required && (f.task.dirty || f.task.touched)}"
+          formControlName="task"
+          type="text" 
+          class="form-control" 
+          id="task" 
+          placeholder="Password">
+          <label for="task">¿Cual es la tarea?</label>
+          <div class="invalid-feedback" *ngIf="f.task.errors?.required" >
+            El nombre de la tarea es obligatorio. 
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button [disabled]="this.newTaskForm.invalid" type="submit" class="btn btn-success">Crear!</button>
+      </div>
+    </form>
 </ng-template>
 
 
 
-<div *ngIf="errorMio" class="alert alert-danger mt-4" role="alert">
-  {{errorMio}}
-</div>
+
 <div class="container-lg my-4">
-    <div class="row row-cols-3 tabla-task">
-        <div *ngFor="let task of tasks" id="{{task.id}}"  class="col-md-4 col-sm-6 col-12">
-          <div class="card text-center bg-secondary text-white">
-              <div *ngIf="task.completed==true" class="card-header bg-success">
-                {{task.nameTask}}
+  <div *ngIf="errorMio" class="alert alert-danger mt-4" role="alert">
+    {{errorMio}}
+  </div>
+  <div *ngIf="this.notTasks" class="alert alert-info" role="alert">
+    No tienes ninguna tarea creada! <a (click)="this.openModal(this.modal)" href="#">Haz click aqui</a> , o en el boton en la parte inferior, para crear una nueva!
+  </div>
+  <div class="row row-cols-3 tabla-task">
+      <div 
+      *ngFor="let task of tasks" id="{{task.id}}"  
+      class="col-md-4 col-sm-6 col-12">
+        <app-task-template [task]="task" [clickCardFunction]="openOptions"></app-task-template>     
+    </div>
+  </div>
+  <a (click)="this.openModal(this.modal)" class="btn-flotante cursor-pointer"><i class="bi bi-pencil-square"></i></a>
+</div>
+
+<!--
+  <div 
+  <div class="card bg-dark text-white outline outline-grey-2 w-100 h-100" style="width: 18rem;">
+            <div class="card-body">
+              <h5 class="card-title">
+                <strong>
+                  <a class="text-decoration-none text-white stretched-link"
+                  (click)="this.openOptions(task.id, task.completed)">
+                    {{task.nameTask}}
+                  </a>
+                </strong>
+              </h5>
+              <p class="card-text">
+                {{task.task}}
+              </p>
+            </div>
+            <div class="card-footer">
+              <div class="d-flex justify-content-around">
+                <span class="text-muted"> 
+                  null
+                </span>
+                <span 
+                class="text-success"
+                *ngIf="task.completed">
+                  Completado
+                </span>
+                <span 
+                class="text-warning"
+                *ngIf="!task.completed">
+                  Pendiente
+                </span>
               </div>
-              <div *ngIf="task.completed==false" class="card-header bg-warning">
-                {{task.nameTask}}
+            </div>
+          </div>
+          [ngClass]="{'border-warning': !task.completed, 'border-success': task.completed}"
+          class="card text-center bg-secondary text-white">
+              <div 
+              [ngClass]="{'border-warning': !task.completed, 'border-success': task.completed}"
+              class="card-header">
+                <a class="text-decoration-none text-white stretched-link" [routerLink]="['/task',task.id]">{{task.nameTask}}</a>
               </div>
               <div class="card-body">
                   <div class="border p-3 mb-3">
-                      <p class="card-title">Fecha Creacion: 12/10/2021</p>
-                      <p *ngIf="task.completed==true" class="card-text">Fecha completado: 12/10/2021</p>
+                      <p class="card-title">Fecha Creacion: {{this.formatDate(task.createdAt)}}</p>
                       <p  *ngIf="task.completed==false" class="card-text ">Por completar</p>
                   </div>
                 <p class="card-text">{{task.task}}</p>
               </div>
-                <div *ngIf="task.completed==true" class="card-footer bg-success">COMPLETADO</div>
-                <div *ngIf="task.completed==false" class="card-footer bg-warning">NO COMPLETADO</div>
+                <div 
+                [ngClass]="{'bg-warning': !task.completed, 'bg-success': task.completed}"
+                class="card-footer">
+                  <span *ngIf="task.completed">COMPLETADO</span>
+                  <span *ngIf="!task.completed">NO COMPLETADO</span>
+                </div>
           </div>
-      </div>
-    </div>
-    <a (click)="this.openModal(this.modal)" class="btn-flotante cursor-pointer"><i class="bi bi-pencil-square"></i></a>
-</div>
+-->
 
 

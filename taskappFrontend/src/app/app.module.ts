@@ -16,6 +16,9 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { TokenInterceptor } from './interceptors/token.interceptor';
 import { AuthInterceptor } from './interceptors/auth.interceptor';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { TaskComponent } from './pages/tasks/task/task.component';
+import { TaskTemplateComponent } from './templates/task-template/task-template.component';
+import { TrashComponent } from './trash/trash.component';
 
 
 @NgModule({
@@ -27,6 +30,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     UserComponent,
     LoginComponent,
     RegisterComponent,
+    TaskComponent,
+    TaskTemplateComponent,
+    TrashComponent,
   ],
   imports: [
     BrowserModule,

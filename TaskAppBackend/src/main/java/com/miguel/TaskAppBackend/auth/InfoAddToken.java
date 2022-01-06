@@ -1,8 +1,7 @@
 package com.miguel.TaskAppBackend.auth;
 
-import com.miguel.TaskAppBackend.model.User;
-import com.miguel.TaskAppBackend.repository.UserRepository;
-import com.miguel.TaskAppBackend.services.DAO.UserDAO;
+import com.miguel.TaskAppBackend.user.model.User;
+import com.miguel.TaskAppBackend.user.services.UserDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.oauth2.common.DefaultOAuth2AccessToken;
@@ -28,10 +27,8 @@ public class InfoAddToken implements TokenEnhancer {
         User user = repository.findByEmail(authentication.getName());
 
         Map<String, Object> info = new HashMap<>();
-        info.put("id", user.getId());
         info.put("username", user.getName());
         info.put("email", user.getEmail());
-        info.put("password", user.getPassword());
         ((DefaultOAuth2AccessToken) accessToken).setAdditionalInformation(info);
         return accessToken;
     }

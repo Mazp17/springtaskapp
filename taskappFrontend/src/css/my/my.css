@@ -21,6 +21,24 @@
     background-color: var(--color-grey-1) !important;
 }
 
+.outline {
+    outline-style: solid;
+    outline-width: 2px;
+}
+
+.outline-grey-2 {
+    outline-color: var(--color-grey-2) ;
+}
+
+.border-grey-2 {
+    border-color: var(--color-grey-2) !important;
+}
+
+.border-bottom-grey-2 {
+    border-bottom: 1px solid var(--color-grey-2) !important;
+}
+
+
 .cursor-pointer {
     cursor: pointer;
 }
