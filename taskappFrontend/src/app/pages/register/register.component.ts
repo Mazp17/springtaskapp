@@ -81,10 +81,7 @@ export class RegisterComponent implements OnInit {
         this.errorUser = false;
         this.submit = true; 
         this.router.navigate(['/home']);
-        
-        Swal.fire('Inicio de sesión', `Hola, ${name}.
-        Has iniciado sesión satisfactoriamente.`, 'success');
-
+      
       },
       (error) => {
         console.error(error);

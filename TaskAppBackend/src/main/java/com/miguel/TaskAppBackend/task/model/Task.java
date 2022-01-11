@@ -1,11 +1,9 @@
 package com.miguel.TaskAppBackend.task.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.miguel.TaskAppBackend.GlobalVars;
 import com.miguel.TaskAppBackend.user.model.User;
 
 import javax.persistence.*;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 
 @Entity
@@ -35,8 +33,7 @@ public class Task {
     @ManyToOne(
             optional = true,
             cascade = {
-                    CascadeType.PERSIST,
-                    CascadeType.MERGE
+                    CascadeType.ALL
             }
     )
     @JoinColumn(

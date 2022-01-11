@@ -18,9 +18,6 @@ public class TaskAppBackendApplication implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) throws Exception {
-		String password = "12345";
-		String passwordBcrypt = passwordEncoder.encode(password);
-		System.out.println(passwordBcrypt);
 		System.out.println("---------- APPLICATION IS RUNNING ---------");
 	}
 }

@@ -105,9 +105,12 @@ export class TasksComponent{
           this.tasks.push(tasks[i]);
         }
       }
-      if(tasks.length == 0) {
+
+      if(this.tasks.length == 0) {
         this.notTasks = true;
-      }      
+      } else {
+        this.notTasks = false;
+      }
     },
   (err: HttpErrorResponse) => {
     if(err.error instanceof Error) {
@@ -130,7 +133,7 @@ export class TasksComponent{
          this.closeModal();
          this.Toast.fire({
            icon: 'success',
-           title: 'Task added!'
+           title: 'Has añadido una tarea!'
          })
         this.submit = true;
         this.getTask();

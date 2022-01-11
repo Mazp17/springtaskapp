@@ -35,65 +35,12 @@ public class TaskController {
     /*public Iterable<Task> findAll() {
         return taskDAO.findAll();
     }*/
-    @GetMapping("/task/{id}")
-    public ResponseEntity<?> findById(@PathVariable Integer id, Authentication authentication) {
-        Map<String, Object> response = new HashMap<>();
-        User oUser = userDAO.findByEmail(authentication.getName());
-        Optional<Task> oTask = taskDAO.findById(id);
-        if(oUser == null) {
-            response.put("error", "user not exist");
-            response.put("message", "The user is no exist in own BD");
-            response.put("code", "1001");
-            return new ResponseEntity<Map<String, Object>>
-                    (response, HttpStatus.BAD_REQUEST);
-        }
-        if(oTask.isEmpty()) {
-            response.put("error", "task not exist");
-            response.put("message", "The task is no exist in own BD");
-            response.put("code", "1001");
-            return new ResponseEntity<Map<String, Object>>
-                    (response, HttpStatus.BAD_REQUEST);
-        }
-        try {
-            if(oTask.get().getUser() != oUser) {
-                response.put("error", "user is not own this task");
-                response.put("message",
-                        "the user is not own this task, u can only search your own tasks");
-                response.put("code", "2001");
-                return new ResponseEntity<Map<String, Object>>
-                        (response, HttpStatus.NOT_ACCEPTABLE);
-            }
-            response.put("message", "Your task");
-            response.put("task", oTask);
-            return new ResponseEntity<Map<String, Object>>
-                    (response, HttpStatus.OK);
-        } catch (Error e) {
-            response.put("message", "An error occurred");
-            response.put("error", e.getMessage().concat(": ")
-                    .concat(e.getMessage()));
-            return new ResponseEntity<Map<String, Object>>
-                    (response, HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-    }
 
-
-    //Peticion GET para obtener las tareas por cada usuario
-    /*@GetMapping("/task/{idUser}")
-    public List<Task> findByIdUser(@PathVariable Integer idUser) {
-        return taskDAO.findByIdUser(idUser);
-    }*/
 
     @GetMapping("/task")
     public ResponseEntity<?> getTasks(Authentication authentication) {
         Map<String, Object> response = new HashMap<>();
         User user = userDAO.findByEmail(authentication.getName());
-        if(user == null) {
-            response.put("error", "user not exist");
-            response.put("message", "The user is no exist in own BD");
-            response.put("code", "1001");
-            return new ResponseEntity<Map<String, Object>>
-                    (response, HttpStatus.BAD_REQUEST);
-        }
         try {
             List<Task> tasks = user.getTasks();
             response.put("message", "Your tasks");
@@ -117,19 +64,32 @@ public class TaskController {
                                       @RequestBody Task task) {
         Map<String, Object> response = new HashMap<>();
         User oUser = userDAO.findByEmail(authentication.getName());
-        if(oUser == null) {
-            response.put("error", "user not exist");
-            response.put("message", "The user is no exist in own BD");
-            response.put("code", "1001");
-            return new ResponseEntity<Map<String, Object>>
-                    (response, HttpStatus.BAD_REQUEST);
-        }
         try {
             task.setUser(oUser);
             taskDAO.save(task);
             response.put("message", oUser.getName() + " Your task added");
             return new ResponseEntity<Map<String, Object>>
                     (response, HttpStatus.CREATED);
+        } catch (Error e) {
+            response.put("message", "An error occurred");
+            response.put("error", e.getMessage().concat(": ")
+                    .concat(e.getMessage()));
+            return new ResponseEntity<Map<String, Object>>
+                    (response, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @GetMapping("/task/{id}")
+    public ResponseEntity<?> findById(@PathVariable Integer id, Authentication authentication) {
+        Map<String, Object> response = new HashMap<>();
+        User oUser = userDAO.findByEmail(authentication.getName());
+        Optional<Task> oTask = taskDAO.findById(id);
+
+        try {
+            response.put("message", "Your task");
+            response.put("task", oTask);
+            return new ResponseEntity<Map<String, Object>>
+                    (response, HttpStatus.OK);
         } catch (Error e) {
             response.put("message", "An error occurred");
             response.put("error", e.getMessage().concat(": ")
@@ -147,30 +107,9 @@ public class TaskController {
         Map<String, Object> response = new HashMap<>();
         User oUser = userDAO.findByEmail(authentication.getName());
         Optional<Task> oTask = taskDAO.findById(id);
-        if(oUser == null) {
-            response.put("error", "user not exist");
-            response.put("message", "The user is no exist in own BD");
-            response.put("code", "1001");
-            return new ResponseEntity<Map<String, Object>>
-                    (response, HttpStatus.BAD_REQUEST);
-        }
-        if(oTask.isEmpty()) {
-            response.put("error", "task not exist");
-            response.put("message", "The task is no exist in own BD");
-            response.put("code", "1001");
-            return new ResponseEntity<Map<String, Object>>
-                    (response, HttpStatus.BAD_REQUEST);
-        }
+
         try {
             Task taskUpdate = oTask.get();
-            if(taskUpdate.getUser() != oUser) {
-                response.put("error", "user is not own this task");
-                response.put("message",
-                        "the user is not own this task, u can only search your own tasks");
-                response.put("code", "2001");
-                return new ResponseEntity<Map<String, Object>>
-                        (response, HttpStatus.NOT_ACCEPTABLE);
-            }
             taskUpdate.setNameTask(task.getNameTask());
             taskUpdate.setTask(task.getTask());
             taskUpdate.setCompleted(task.isCompleted());
@@ -195,35 +134,14 @@ public class TaskController {
         Map<String, Object> response = new HashMap<>();
         User oUser = userDAO.findByEmail(authentication.getName());
         Optional<Task> oTask = taskDAO.findById(id);
-        if(oUser == null) {
-            response.put("error", "user not exist");
-            response.put("message", "The user is no exist in own BD");
-            response.put("code", "1001");
-            return new ResponseEntity<Map<String, Object>>
-                    (response, HttpStatus.BAD_REQUEST);
-        }
-        if(oTask.isEmpty()) {
-            response.put("error", "task not exist");
-            response.put("message", "The task is no exist in own BD");
-            response.put("code", "1001");
-            return new ResponseEntity<Map<String, Object>>
-                    (response, HttpStatus.BAD_REQUEST);
-        }
         try {
             Task taskUpdate = oTask.get();
-            if(taskUpdate.getUser() != oUser) {
-                response.put("error", "user is not own this task");
-                response.put("message",
-                        "the user is not own this task, u can only search your own tasks");
-                response.put("code", "2001");
-                return new ResponseEntity<Map<String, Object>>
-                        (response, HttpStatus.NOT_ACCEPTABLE);
-            }
             if(taskUpdate.isCompleted()) {
                 taskUpdate.setCompleted(false);
                 taskUpdate.setCompletedAt(null);
                 taskDAO.save(taskUpdate);
-                response.put("message", oUser.getName() + " Your task identify with id" +
+                response.put("message", oUser.getName() +
+                        " Your task identify with id " +
                         taskUpdate.getId() + " is marked as not completed");
                 return new ResponseEntity<Map<String, Object>>
                         (response, HttpStatus.OK);
@@ -251,44 +169,22 @@ public class TaskController {
         Map<String, Object> response = new HashMap<>();
         User oUser = userDAO.findByEmail(authentication.getName());
         Optional<Task> oTask = taskDAO.findById(id);
-        if(oUser == null) {
-            response.put("error", "user not exist");
-            response.put("message", "The user is no exist in own BD");
-            response.put("code", "1001");
-            return new ResponseEntity<Map<String, Object>>
-                    (response, HttpStatus.BAD_REQUEST);
-        }
-        if(oTask.isEmpty()) {
-            response.put("error", "task not exist");
-            response.put("message", "The task is no exist in own BD");
-            response.put("code", "1001");
-            return new ResponseEntity<Map<String, Object>>
-                    (response, HttpStatus.BAD_REQUEST);
-        }
+
         try {
             Task taskUpdate = oTask.get();
-            if(taskUpdate.getUser() != oUser) {
-                response.put("error", "user is not own this task");
-                response.put("message",
-                        "the user is not own this task, u can only search your own tasks");
-                response.put("code", "2001");
-                return new ResponseEntity<Map<String, Object>>
-                        (response, HttpStatus.NOT_ACCEPTABLE);
-            }
             if(taskUpdate.isDeleted()) {
                 taskUpdate.setDeleted(false);
                 taskUpdate.setDeletedAt(null);
                 taskDAO.save(taskUpdate);
                 response.put("message", oUser.getName() + " Your task identify with id" +
                         taskUpdate.getId() + " has been marked as not deleted");
-                return new ResponseEntity<Map<String, Object>>
-                        (response, HttpStatus.OK);
+            } else {
+                taskUpdate.setDeleted(true);
+                taskUpdate.setDeletedAt(new Date());
+                taskDAO.save(taskUpdate);
+                response.put("message", oUser.getName() + " Your task identify with id" +
+                        taskUpdate.getId() + " has been marked as deleted");
             }
-            taskUpdate.setDeleted(true);
-            taskUpdate.setDeletedAt(new Date());
-            taskDAO.save(taskUpdate);
-            response.put("message", oUser.getName() + " Your task identify with id" +
-                    taskUpdate.getId() + " has been marked as deleted");
             return new ResponseEntity<Map<String, Object>>
                     (response, HttpStatus.OK);
         } catch (Error e) {

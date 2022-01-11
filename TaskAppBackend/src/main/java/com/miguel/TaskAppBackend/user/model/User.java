@@ -21,7 +21,7 @@ public class User {
 
     @NotEmpty
     @NotNull
-    @Column(unique = true)
+    @Column
     private String name;
 
     @NotEmpty

@@ -20,6 +20,9 @@ export class AuthInterceptor implements HttpInterceptor {
 
     return next.handle(req).pipe(
       catchError(e => {
+        if(e.error.code == "2001") {
+          this.router.navigate(['/home']);
+        }
         if(e.status == 401) {
           if(this.authService.isAuthenticated()) {
             this.authService.logout();
