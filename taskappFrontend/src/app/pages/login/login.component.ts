@@ -32,11 +32,7 @@ export class LoginComponent implements OnInit {
 
 
   onSubmit() { 
-    console.log(this.loginUser.value);
-
     this.authService.login(this.loginUser.value).subscribe(response => {
-      console.log(response);
-
       this.authService.guardarUsuario(response.access_token);
       this.authService.guardarToken(response.access_token);
       let user = this.authService.usuario.username;

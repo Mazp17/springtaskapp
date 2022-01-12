@@ -52,7 +52,6 @@ export class AuthService {
     params.set('username', user.email);
     params.set('password', user.password);
     params.set('grant_type', 'password');
-    console.log(params.toString());
     return this.http.post<any>(
       urlEndPoint, params.toString(), 
       {
