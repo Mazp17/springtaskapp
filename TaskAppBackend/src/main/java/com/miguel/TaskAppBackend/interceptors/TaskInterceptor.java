@@ -25,7 +25,10 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 
-
+/*
+    Marked is a deprecated because is not necessary use
+*/
+@Deprecated
 public class TaskInterceptor implements HandlerInterceptor {
 
     private UserDAO userDAO;

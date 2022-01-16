@@ -19,8 +19,6 @@ public class AppConfig implements WebMvcConfigurer {
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(new TaskInterceptor(userDAO))
-                .addPathPatterns("/api/task");
         registry.addInterceptor(new TaskFindByIdInterceptor(userDAO, taskDAO))
                 .addPathPatterns("/api/task/{id}",
                         "/api/task/completed/{id}",

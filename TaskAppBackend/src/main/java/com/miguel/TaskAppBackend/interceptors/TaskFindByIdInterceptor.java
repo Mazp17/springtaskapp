@@ -22,6 +22,11 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
 
+
+/*
+    This interceptor search tasks is not null
+    and search to make the task the user
+ */
 public class TaskFindByIdInterceptor implements HandlerInterceptor {
 
     private UserDAO userDAO;
@@ -41,12 +46,13 @@ public class TaskFindByIdInterceptor implements HandlerInterceptor {
         Authentication authentication = SecurityContextHolder
                 .getContext()
                 .getAuthentication();
-
         User oUser = userDAO.findByEmail(authentication.getName());
         Map pathVariables = (Map) request.getAttribute
                 (HandlerMapping.URI_TEMPLATE_VARIABLES_ATTRIBUTE);
         String id = pathVariables.get("id").toString();
         Optional<Task> oTask = taskDAO.findById(Integer.valueOf(id));
+
+        //search task is not null
         if(!oTask.isPresent()) {
             responseMsg.put("error", "task not exist");
             responseMsg.put("message", "The task is no exist in own BD");
@@ -57,6 +63,7 @@ public class TaskFindByIdInterceptor implements HandlerInterceptor {
             response.getWriter().write(json);
             return false;
         }
+        //search tasks is make to the user
         if(!Objects.equals(oUser.getId(), oTask.get().getUser().getId())) {
             responseMsg.put("error", "user is not own this task");
             responseMsg.put("message",

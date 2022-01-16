@@ -3,6 +3,7 @@ package com.miguel.TaskAppBackend.user.model;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.miguel.TaskAppBackend.role.model.Role;
 import com.miguel.TaskAppBackend.task.model.Task;
+import lombok.Getter;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
@@ -13,6 +14,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "users")
+@Getter
 public class User {
 
     @Id
