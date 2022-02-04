@@ -71,7 +71,7 @@ public class UserController {
             if(typeUser == 1) {
                 Role role = roleService.findByName("ROLE_ADMIN");
                 user.setRoles(Arrays.asList(role));
-                 System.out.println("enabled is: " + user.getEnabled());
+                System.out.println("enabled is: " + user.getEnabled());
                 userNew = userService.save(user);
             } else {
                 response.put("message", "not specify typeUser in route or incorrect number in path, search in documentation api");
